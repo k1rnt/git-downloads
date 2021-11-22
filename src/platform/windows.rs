@@ -5,6 +5,7 @@ pub fn get_name() -> String {
 }
 
 pub fn get_downloads_dir() -> String {
-    let home = env::var("USERPROFILE").expect("HOME is not defind");
+    let home_env = "USERPROFILE";
+    let home = env::var(home_env).expect(&format!("{} is not defind", home_env));
     format!("{}\\Downloads", home)
 }
