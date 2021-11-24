@@ -7,3 +7,4 @@ edition = "2018"
 
 [dependencies]
 notify = "4.0.17"
+dotenv = "0.15.0"

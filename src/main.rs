@@ -2,13 +2,20 @@ extern crate notify;
 
 use notify::{Watcher, RecursiveMode, RawEvent, raw_watcher};
 use std::sync::mpsc::channel;
+use dotenv::dotenv;
+use std::env;
 
 mod platform;
 
 fn main() {
-    println!("used {}", platform::get_name());
-    let watch_dir = platform::get_downloads_dir();
+    dotenv().ok();
 
+    println!("used {}", platform::get_name());
+
+    let watch_dir = match env::var("TARGET") {
+        Ok(val) => format!("{}", val),
+        Err(_) => platform::get_downloads_dir()
+    };
     let (tx, rx) = channel();
     let mut watcher = raw_watcher(tx).unwrap();
 
